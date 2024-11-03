@@ -4,15 +4,15 @@ import { NextResponse } from 'next/server'
 
 export default withAuth(
   async function middleware(req) {
-    const pathname = req.nextUrl.pathname
-
+    var pathname = req.nextUrl.pathname
+    if(typeof pathname === undefined) pathname = '/'
     // Manage route protection
     const isAuth = await getToken({ req })
-    const isLoginPage = pathname?.startsWith('/login') ?? false
+    const isLoginPage = pathname.startsWith('/login')
 
     const sensitiveRoutes = ['/dashboard']
     const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
-      (pathname ?? '').startsWith(route)
+      pathname.startsWith(route)
     )
 
     if (isLoginPage) {
