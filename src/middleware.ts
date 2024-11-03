@@ -11,10 +11,7 @@ export default withAuth(
     const isLoginPage = pathname.startsWith('/login')
 
     const sensitiveRoutes = ['/dashboard']
-    const isAccessingSensitiveRoute = pathname 
-    ? sensitiveRoutes.some((route) => pathname.startsWith(route))
-    : false;
-  
+
 
     if (isLoginPage) {
       if (isAuth) {
@@ -24,7 +21,7 @@ export default withAuth(
       return NextResponse.next()
     }
 
-    if (!isAuth && isAccessingSensitiveRoute) {
+    if (!isAuth) {
       return NextResponse.redirect(new URL('/login', req.url))
     }
 
