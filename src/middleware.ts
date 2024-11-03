@@ -11,9 +11,10 @@ export default withAuth(
     const isLoginPage = pathname.startsWith('/login')
 
     const sensitiveRoutes = ['/dashboard']
-    const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
-      pathname.startsWith(route)
-    )
+    const isAccessingSensitiveRoute = pathname 
+    ? sensitiveRoutes.some((route) => pathname.startsWith(route))
+    : false;
+  
 
     if (isLoginPage) {
       if (isAuth) {
